@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base responsive text styles -->
+    <style name="TextAppearance.App.Headline" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/space_grotesk_wght</item>
+        <item name="fontFamily">@font/space_grotesk_wght</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextAppearance.App.Title" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:fontFamily">@font/space_grotesk_wght</item>
+        <item name="fontFamily">@font/space_grotesk_wght</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextAppearance.App.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/space_grotesk_wght</item>
+        <item name="fontFamily">@font/space_grotesk_wght</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextAppearance.App.Label" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/space_grotesk_wght</item>
+        <item name="fontFamily">@font/space_grotesk_wght</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/space_grotesk_wght</item>
+        <item name="fontFamily">@font/space_grotesk_wght</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- AutoSize variants -->
+    <style name="TextAppearance.App.AutoSize" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/space_grotesk_wght</item>
+        <item name="fontFamily">@font/space_grotesk_wght</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMinTextSize">@dimen/text_min_auto_size</item>
+        <item name="autoSizeMaxTextSize">@dimen/text_max_auto_size</item>
+        <item name="autoSizeStepGranularity">@dimen/text_auto_size_step</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextAppearance.App.AutoSize.Large" parent="TextAppearance.App.AutoSize">
+        <item name="autoSizeMaxTextSize">@dimen/text_max_auto_size_large</item>
+    </style>
+</resources>

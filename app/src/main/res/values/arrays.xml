@@ -1,0 +1,19 @@
+<resources>
+    <string-array name="pallet_sizes">
+        <item>75</item>
+        <item>83</item>
+        <item>90</item>
+        <item>95</item>
+        <item>98</item>
+        <item>105</item>
+    </string-array>
+    <string-array name="material_types">
+        <item>Izaberite</item>
+        <item>Cu</item>
+        <item>CuZn10</item>
+        <item>CuZn15</item>
+        <item>CuZn20</item>
+        <item>CuZn30</item>
+        <item>CuZn37</item>
+    </string-array>
+</resources>

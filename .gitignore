@@ -1,0 +1,19 @@
+
+.planning/
+
+# --- Dodato pri uvođenju gita (lokalno): generisani fajlovi i tajne ---
+build/
+.gradle/
+.kotlin/
+.idea/
+*.iml
+.cxx/
+.externalNativeBuild/
+captures/
+.DS_Store
+local.properties
+keystore.properties
+*.jks
+*.keystore
+*.apk
+*.aab
