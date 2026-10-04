@@ -101,34 +101,6 @@
                     android:layout_marginBottom="@dimen/spacing_medium" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:hint="@string/pallet_height"
-                    android:textColorHint="@color/text_secondary"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    app:hintTextColor="@color/accent"
-                    app:placeholderText="@string/hint_pallet_height"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/surface_light"
-                    app:boxStrokeColor="@color/accent"
-                    app:boxStrokeWidth="@dimen/card_stroke_width"
-                    app:boxStrokeWidthFocused="@dimen/input_stroke_width_focused"
-                    app:boxBackgroundMode="outline">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/palletHeightInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:minHeight="@dimen/input_min_height"
-                        android:maxLines="1"
-                        android:text="@string/default_pallet_height"
-                        android:inputType="numberDecimal"
-                        android:digits="0123456789,."
-                        android:imeOptions="actionNext"
-                        android:nextFocusForward="@id/separatorInput" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:hint="@string/separator_width"
                     android:textColorHint="@color/text_secondary"
                     android:layout_marginBottom="@dimen/spacing_medium"
@@ -150,33 +122,6 @@
                         android:minHeight="@dimen/input_min_height"
                         android:maxLines="1"
                         android:text="@string/default_separator"
-                        android:inputType="numberDecimal"
-                        android:digits="0123456789,."
-                        android:imeOptions="actionNext"
-                        android:nextFocusForward="@id/maxPalletWeightInput" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:hint="@string/max_pallet_weight"
-                    android:textColorHint="@color/text_secondary"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    app:hintTextColor="@color/accent"
-                    app:placeholderText="@string/hint_max_pallet_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/surface_light"
-                    app:boxStrokeColor="@color/accent"
-                    app:boxStrokeWidth="@dimen/card_stroke_width"
-                    app:boxStrokeWidthFocused="@dimen/input_stroke_width_focused"
-                    app:boxBackgroundMode="outline">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/maxPalletWeightInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:minHeight="@dimen/input_min_height"
-                        android:maxLines="1"
                         android:inputType="numberDecimal"
                         android:digits="0123456789,."
                         android:imeOptions="actionNext"

@@ -7,9 +7,7 @@
     <string name="recommended_pallet_format">%1$d cm</string>
     <string name="recommended_pallet_empty">–</string>
     <string name="manual_pallet_size">Dimenzija palete (cm)</string>
-    <string name="pallet_height">Visina palete do vrha daske (mm)</string>
     <string name="separator_width">Širina separatora (mm)</string>
-    <string name="max_pallet_weight">Maks. kilaža po paleti (kg) – opciono</string>
     <string name="customer_target_weight">Tražena kilaža kupca (kg) – opciono</string>
     <string name="coil_radial_thickness">Poluprečnik</string>
     <string name="coil_core_diameter">Unutr. prečnik</string>
@@ -17,11 +15,9 @@
     <string name="strip_width">Širina trake</string>
     <string name="material_label">Materijal</string>
     <string name="coil_count">Broj kotura (kom)</string>
-    <string name="hint_pallet_height">npr. 150</string>
     <string name="pallet_size_auto">Automatski (preporučeno)</string>
     <string name="pallet_size_option_format">%1$d cm</string>
     <string name="hint_separator">npr. 20</string>
-    <string name="hint_max_pallet_weight">npr. 1200</string>
     <string name="hint_customer_target_weight">npr. 3500</string>
     <string name="hint_radial_thickness">npr. 150</string>
     <string name="hint_core_diameter">npr. 400</string>
@@ -29,7 +25,6 @@
     <string name="hint_strip_width">npr. 72</string>
     <string name="hint_coil_count">npr. 3</string>
     <string name="default_separator">20</string>
-    <string name="default_pallet_height">150</string>
     <string name="default_coil_count">1</string>
     <string name="add_entry">DODAJ KOTUR</string>
     <string name="calculate">IZRAČUNAJ PLAN</string>

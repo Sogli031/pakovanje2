@@ -24,6 +24,8 @@ private const val MM_TO_M = 1000.0
 private const val PALLET_CLEARANCE_MM = 50.0
 private const val MATERIAL_PLACEHOLDER = "Izaberite"
 private const val WEIGHT_TOLERANCE = 0.10
+private const val PALLET_HEIGHT_MM = 150.0
+private const val MAX_PALLET_WEIGHT_KG = 1500.0
 private const val WEIGHT_PRECISION = 10
 
 private val MATERIAL_DENSITIES = mapOf(
@@ -226,9 +228,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val palletHeightInput = findViewById<TextInputEditText>(R.id.palletHeightInput)
         val separatorInput = findViewById<TextInputEditText>(R.id.separatorInput)
-        val maxPalletWeightInput = findViewById<TextInputEditText>(R.id.maxPalletWeightInput)
         val targetWeightInput = findViewById<TextInputEditText>(R.id.targetWeightInput)
         val palletSizeContainer = findViewById<LinearLayout>(R.id.palletSizeContainer)
 
@@ -261,10 +261,27 @@ class MainActivity : AppCompatActivity() {
         palletChoice = ChoiceGroup(palletSizeContainer, palletSizeLabels, fullWidthFirst = true, initial = 0)
         updateRecommendedPallet()
 
+        val pendingWatcher = object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) {
+                updatePendingRoll(
+                    radialThicknessInput.text?.toString().orEmpty(),
+                    coreDiameterInput.text?.toString().orEmpty()
+                )
+            }
+        }
+        radialThicknessInput.addTextChangedListener(pendingWatcher)
+        coreDiameterInput.addTextChangedListener(pendingWatcher)
+        updatePendingRoll(
+            radialThicknessInput.text?.toString().orEmpty(),
+            coreDiameterInput.text?.toString().orEmpty()
+        )
+
         // Enter/Next: prebaci fokus na sledece polje i namesti skrol iza tastature.
         val rootScroll = findViewById<ScrollView>(R.id.rootScroll)
         val inputChain = listOf(
-            palletHeightInput, separatorInput, maxPalletWeightInput, targetWeightInput,
+            separatorInput, targetWeightInput,
             radialThicknessInput, coreDiameterInput, materialThicknessInput,
             stripWidthInput, coilCountInput
         )
@@ -367,20 +384,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             try {
-                val palletHeight = parsePositiveDouble(
-                    palletHeightInput.text?.toString().orEmpty(),
-                    "Visina palete",
-                    allowZero = false
-                )
+                val palletHeight = PALLET_HEIGHT_MM
                 val separator = parsePositiveDouble(
                     separatorInput.text?.toString().orEmpty(),
                     "Širina separatora",
                     allowZero = true
                 )
-                val maxPalletWeight = parseOptionalPositiveDouble(
-                    maxPalletWeightInput.text?.toString().orEmpty(),
-                    "Maksimalna kilaža po paleti"
-                )
+                val maxPalletWeight: Double? = MAX_PALLET_WEIGHT_KG
                 val targetWeight = parseOptionalPositiveDouble(
                     targetWeightInput.text?.toString().orEmpty(),
                     "Tražena kilaža"
@@ -519,25 +529,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private var pendingOuterDiameterMm: Double? = null
+
     private fun updateRecommendedPallet() {
-        val maxOuterDiameter = entries.maxOfOrNull { it.dimensions.outerDiameterMm }
-        if (maxOuterDiameter == null) {
-            recommendedPalletSizeCm = null
-            recommendedPalletText.text = getString(R.string.recommended_pallet_empty)
-            return
-        }
         val sizes = resources.getStringArray(R.array.pallet_sizes)
             .mapNotNull { it.toIntOrNull() }
             .sorted()
-        if (sizes.isEmpty()) {
-            recommendedPalletSizeCm = null
-            recommendedPalletText.text = getString(R.string.recommended_pallet_empty)
-            return
+        fun pick(outerMm: Double): Int? {
+            if (sizes.isEmpty()) return null
+            val requiredMm = outerMm + PALLET_CLEARANCE_MM
+            return sizes.firstOrNull { (it * 10.0) > requiredMm } ?: sizes.last()
         }
-        val requiredMm = maxOuterDiameter + PALLET_CLEARANCE_MM
-        val recommended = sizes.firstOrNull { (it * 10.0) > requiredMm } ?: sizes.last()
-        recommendedPalletSizeCm = recommended
-        recommendedPalletText.text = getString(R.string.recommended_pallet_format, recommended)
+        val entriesOuter = entries.maxOfOrNull { it.dimensions.outerDiameterMm }
+        recommendedPalletSizeCm = entriesOuter?.let { pick(it) }
+        // Prikaz uključuje i koturove koji su tek ukucani (još nisu dodati).
+        val shownOuter = listOfNotNull(entriesOuter, pendingOuterDiameterMm).maxOrNull()
+        val shown = shownOuter?.let { pick(it) }
+        recommendedPalletText.text = if (shown == null) {
+            getString(R.string.recommended_pallet_empty)
+        } else {
+            getString(R.string.recommended_pallet_format, shown)
+        }
+    }
+
+    private fun updatePendingRoll(radialRaw: String, coreRaw: String) {
+        val radial = radialRaw.trim().replace(",", ".").toDoubleOrNull()
+        val core = coreRaw.trim().replace(",", ".").toDoubleOrNull()
+        pendingOuterDiameterMm = if (radial != null && core != null && radial > 0.0 && core > 0.0) {
+            core + 2.0 * radial
+        } else {
+            null
+        }
+        updateRecommendedPallet()
     }
 
     private fun clearResults() {
